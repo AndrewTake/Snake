@@ -72,7 +72,7 @@ if __name__ == "__main__":
         def update(self):
             self.snake.move_snake()
             self.check_collision()
-            # self.check_fail()
+            self.check_fail()
 
         def draw_elements(self):
             self.fruit.draw_fruit()
@@ -86,21 +86,22 @@ if __name__ == "__main__":
                 self.snake.add_block()
                 self.snake.play_sound()
 
-        # def check_fail(self):
-        #     # check if snake hits itself
-        #     if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
-        #         # checks vector left and right
-        #         self.game_over()
-        #     for block in self.snake.body[1:]:
-        #         if block == self.snake.body[0]:
-        #             self.game_over()
-        # def game_over(self):
-        #     pygame.quit()
-        #     sys.exit()
+        def check_fail(self):
+            # check if snake hits itself
+            if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
+                # checks vector left and right
+                self.game_over()
+            for block in self.snake.body[1:]:
+                if block == self.snake.body[0]:
+                    self.game_over()
+
+        def game_over(self):
+            pygame.quit()
+            sys.exit()
 
     pygame.init()
-    cell_size = 20
-    cell_number = 20
+    cell_size = 25
+    cell_number = 25
     screen = pygame.display.set_mode(
         (cell_number * cell_size, cell_number * cell_size))
     clock = pygame.time.Clock(
@@ -115,13 +116,13 @@ if __name__ == "__main__":
 
     while True:
         for event in pygame.event.get():
-            # if event.type == pygame.QUIT:
-            #     pygame.quit(
-            #         # looks for an input to quit the game
-            #     )
-            #     sys.exit(
-            #         # allows dev to exit from the game
-            #     )
+            if event.type == pygame.QUIT:
+                pygame.quit(
+                    # looks for an input to quit the game
+                )
+                sys.exit(
+                    # allows dev to exit from the game
+                )
             if event.type == screen_update:
                 main_game.update()
             if event.type == pygame.KEYDOWN:
